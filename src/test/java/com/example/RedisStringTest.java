@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import java.util.Map;
+
 @SpringBootTest
 public class RedisStringTest {
     @Autowired
@@ -37,6 +39,15 @@ public class RedisStringTest {
         System.out.printf("o = " + o);
     }
 
+    @Test
+    void testHash() {
+        stringRedisTemplate.opsForHash().put("User:400", "name", "虎哥");
+        stringRedisTemplate.opsForHash().put("User:400", "age", "21");
+
+        Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries("User:400");
+        System.out.println(entries);
+
+    }
     @Test
     void contextLoads() {
     }
